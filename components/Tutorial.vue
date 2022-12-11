@@ -14,10 +14,10 @@
         </h2>
         <!-- <h3 class="font-semibold">A web developer</h3> -->
         <p class="mt-3 text-gray-600">
-You can likewise call me Adi. I am <span v-html="getAge('1995-12-2')"> </span> years old.
+You can likewise call me Adi. I am <span v-html="getAge('1995-12-2')"> </span> years old
           and love to tinker stuffs and do web programming the most. 
         </p>
-        <p class="mt-4 pt-4 text-gray-800 border-t border-dashed">
+        <p class="mt-4 pt-4 text-gray-600 border-t border-dashed">
         I am so much into PHP, JavaScript, MySQL and Laravel. I started my career as a web developer since February 2022.
         <br>
         I am currently employed as a Junior Web Developer for a company here in Ortigas District Pasig - one of the Philippines' prime business district.
@@ -28,10 +28,22 @@ You can likewise call me Adi. I am <span v-html="getAge('1995-12-2')"> </span> y
         Freelance Experiences
         </h2>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-      <div class="mt-8 bg-white overflow-hidden shadow sm:rounded-lg p-6">I'm familiar in kotlin and ktor.</div>
-      <div class="md:mt-8 bg-white overflow-hidden shadow sm:rounded-lg p-6">I also did yii framework and craft cms before.</div>
-      <div class="md:mt-8 bg-white overflow-hidden shadow sm:rounded-lg p-6">I can deploy your project on Digital Ocean or Vultr from scratch</div>
+      <div class="grid grid-cols-1 md:grid-cols-3 text-gray-600 gap-4">
+      <div class="mt-8 bg-white overflow-hidden shadow sm:rounded-lg p-6">
+      <p>
+      I worked on Kotlin and Ktor projects before.
+      </p>
+      </div>
+      <div class="md:mt-8 bg-white overflow-hidden shadow sm:rounded-lg p-6">
+      <p>
+      I also did yii framework and craft cms before. As well as making plugins
+      </p>
+      </div>
+      <div class="md:mt-8 bg-white overflow-hidden shadow sm:rounded-lg p-6">
+      <p>
+I can deploy your project on Digital Ocean or Vultr from scratch
+      </p>
+      </div>
       </div>
         <h2 class="ml-2  text-2xl mt-8 leading-7 font-semibold">
         Work Experiences
@@ -43,8 +55,8 @@ You can likewise call me Adi. I am <span v-html="getAge('1995-12-2')"> </span> y
       <span><img class="w-6" src="/chanz.jpeg"></span>
       </div>
       <span class="font-semibold">Junior Web Developer</span>
-      <p>A small startup company in Ortigas Pasig.</p>
-      <span>February 2022 - Present</span>
+      <p class="text-gray-600">A small startup company in Ortigas Pasig.</p>
+      <span class="text-gray-600">February 2022 - Present</span>
       
       </div>
       </div>
@@ -84,11 +96,13 @@ You can likewise call me Adi. I am <span v-html="getAge('1995-12-2')"> </span> y
         xmlns="http://www.w3.org/2000/svg" width="32" height="32" ><path d="M0 0v24h24v-24h-24zm8 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.397-2.586 7-2.777 7 2.476v6.759z"/></svg>
         </a>
       </div>
-      <div class="flex justify-center"> 
+      <div class="flex justify-center "> 
       <p > 
       Handcrafted by Adrian Radores
       </p>
+      
 </div>
+
     </div>
   </div>
 </template>
