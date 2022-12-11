@@ -55,7 +55,7 @@ I can deploy your project on Digital Ocean or Vultr from scratch
       <span><img class="w-6" src="/chanz.jpeg"></span>
       </div>
       <span class="font-semibold">Junior Web Developer</span>
-      <p class="text-gray-600">A small startup company in Ortigas Pasig.</p>
+      <p class="text-gray-600">A small startup company in Ortigas Pasig</p>
       <span class="text-gray-600">February 2022 - Present</span>
       
       </div>
