@@ -2,6 +2,13 @@
 
 ## Build Setup
 
+
+#to deploy
+
+#npm run build
+#npm run generate
+#npm run deploy
+
 ```bash
 # install dependencies
 $ npm install

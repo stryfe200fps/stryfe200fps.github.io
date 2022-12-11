@@ -10,16 +10,17 @@
     <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
       <div class="mt-8 bg-white overflow-hidden shadow sm:rounded-lg p-6">
         <h2 class="text-2xl leading-7 font-semibold">
-          Hi, I'm Adrian. 
+          Hi, I'm Adrian. A web developer
         </h2>
-        <h3 class="font-semibold">A web developer</h3>
+        <!-- <h3 class="font-semibold">A web developer</h3> -->
         <p class="mt-3 text-gray-600">
-I'm <span v-html="getAge('1995-12-2')"> </span> years old and you can also call me Adi,
-          I love to tinker stuffs and programming. 
+You can likewise call me Adi. I am <span v-html="getAge('1995-12-2')"> </span> years old.
+          and love to tinker stuffs and do web programming the most. 
         </p>
         <p class="mt-4 pt-4 text-gray-800 border-t border-dashed">
-          I'm familiar with PHP, CSS, Javascript, MYSQL and Laravel. I started my career as a developer 
-          on February 2022. I'm currently working on a company in Ortigas Pasig as a Junior Web Developer. 
+        I am so much into PHP, JavaScript, MySQL and Laravel. I started my career as a web developer since February 2022.
+        <br>
+        I am currently employed as a Junior Web Developer for a company here in Ortigas District Pasig - one of the Philippines' prime business district.
         </p>
       </div>
       
