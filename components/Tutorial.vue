@@ -36,12 +36,12 @@ You can likewise call me Adi. I am <span v-html="getAge('1995-12-2')"> </span> y
       </div>
       <div class="md:mt-8 bg-white overflow-hidden shadow sm:rounded-lg p-6">
       <p>
-      I also did yii framework and craft cms before. As well as making plugins
+      I also did yii framework and craft cms before. As well as making plugins.
       </p>
       </div>
       <div class="md:mt-8 bg-white overflow-hidden shadow sm:rounded-lg p-6">
       <p>
-I can deploy your project on Digital Ocean or Vultr from scratch
+I can deploy your project on Digital Ocean or Vultr from scratch.
       </p>
       </div>
       </div>
@@ -98,7 +98,7 @@ I can deploy your project on Digital Ocean or Vultr from scratch
       </div>
       <div class="flex justify-center "> 
       <p > 
-      Handcrafted by Adrian Radores
+      Handcrafted by <a href="mailto:mobistyle35@gmail.com">Adrian Radores</a>
       </p>
       
 </div>
