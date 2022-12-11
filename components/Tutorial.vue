@@ -98,7 +98,7 @@ I can deploy your project on Digital Ocean or Vultr from scratch.
       </div>
       <div class="flex justify-center "> 
       <p > 
-      Handcrafted by <a href="mailto:mobistyle35@gmail.com">Adrian Radores</a>
+      Handcrafted by <a class="text-blue-400" href="mailto:mobistyle35@gmail.com">Adrian Radores</a>
       </p>
       
 </div>
