@@ -16,10 +16,12 @@ export default {
       lang: 'en'
     },
     meta: [
+
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: 'Adrian\'s portfolio website' },
       { name: 'format-detection', content: 'telephone=no' },
+      { name: 'google-site-verification', content: 'wc5Rex4lj1jvII1lLlHZWll_3LFKDvLFrZQ1cO0xrWE' },
       { hid: 'og-url', property: 'og:url', content: 'https://adi.is-a.dev' },
       { hid: 'og-image', property: 'og:image',
       content: 'https://media-exp1.licdn.com/dms/image/D5603AQEaxwA2vWOr-w/profile-displayphoto-shrink_200_200/0/1670525231585?e=1675900800&v=beta&t=7wvHJJ0XTtADoPHulU-b_0GEQt--UbcfwK8DZP1twWo'

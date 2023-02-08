@@ -14,7 +14,7 @@
         </h2>
         <!-- <h3 class="font-semibold">A web developer</h3> -->
         <p class="mt-3 text-gray-600">
-You can likewise call me Adi. I am <span v-html="getAge('1995-12-2')"> </span> years old
+You can likewise call me Adi. I am <span v-html="getAge('1995-12-02')"> </span> years old
           and love to tinker stuffs and do web programming the most. 
         </p>
         <p class="mt-4 pt-4 text-gray-600 border-t border-dashed">
@@ -98,7 +98,7 @@ I can deploy your project on Digital Ocean or Vultr from scratch.
       </div>
       <div class="flex justify-center "> 
       <p > 
-      Handcrafted by <a class="text-blue-400" href="mailto:mobistyle35@gmail.com">Adrian Radores</a>
+      Handcrafted by <a class="text-blue-400" href="mailto:mobistyle35@gmail.com">Adi</a>
       </p>
       
 </div>
@@ -116,13 +116,14 @@ export default {
 
     var today = new Date();
     var birthDate = new Date(dateString);
+
     var age = today.getFullYear() - birthDate.getFullYear();
     var m = today.getMonth() - birthDate.getMonth();
     if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
         age--;
     }
-    return age;
 
+    return age;
     }
   }
 }
