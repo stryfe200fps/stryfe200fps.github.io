@@ -1,23 +1,25 @@
 <!-- Please remove this file from your project -->
 <template>
-  <div class="relative flex items-top justify-center min-h-screen bg-gray-100 sm:items-center sm:pt-0">
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.1.2/dist/tailwind.min.css" rel="stylesheet">
+  <div class="relative flex items-top justify-center min-h-screen bg-white dark:bg-slate-800  sm:items-center sm:pt-0">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
 
     <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
-      <div class="mt-8 bg-white overflow-hidden shadow sm:rounded-lg p-6">
+        <button id="darkModeToggle" class="bg-gray-300 dark:bg-gray-700 text-gray-800 dark:text-gray-200 px-4 py-2 rounded-md focus:outline-none">
+            Toggle Dark Mode
+        </button>
+      <div class="mt-8 bg-white dark:bg-slate-600 overflow-hidden shadow sm:rounded-lg p-6">
         <h2 class="text-2xl leading-7 font-semibold">
           Hi, I'm Adrian. A web developer
         </h2>
         <!-- <h3 class="font-semibold">A web developer</h3> -->
-        <p class="mt-3 text-gray-600">
+        <p class="mt-3 text-gray-600 dark:text-black">
 You can likewise call me Adi. I am <span v-html="getAge('1995-12-02')"> </span> years old
           and love to tinker stuffs and do web programming the most. 
         </p>
-        <p class="mt-4 pt-4 text-gray-600 border-t border-dashed">
+        <p class="mt-4 pt-4 text-gray-600 dark:text-black border-t border-dashed dark:border-black">
         I am so much into PHP, JavaScript, MySQL and Laravel. I started my career as a web developer since February 2022.
         <br>
         I am currently employed as a Junior Web Developer for a company here in Ortigas District Pasig - one of the Philippines' prime business district.
@@ -29,19 +31,19 @@ You can likewise call me Adi. I am <span v-html="getAge('1995-12-02')"> </span> 
         </h2>
 
       <div class="grid grid-cols-1 md:grid-cols-3 text-gray-600 gap-4">
-      <div class="mt-8 bg-white overflow-hidden shadow sm:rounded-lg p-6">
+      <div class="mt-8 bg-white dark:bg-slate-600 dark:text-black  overflow-hidden shadow sm:rounded-lg p-6">
       <p>
       I worked on Kotlin and Ktor projects before.
       </p>
       </div>
-      <div class="md:mt-8 bg-white overflow-hidden shadow sm:rounded-lg p-6">
+      <div class="md:mt-8 bg-white dark:text-black dark:bg-slate-600  overflow-hidden shadow sm:rounded-lg p-6">
       <p>
       I also did yii framework and craft cms before. As well as making plugins.
       </p>
       </div>
-      <div class="md:mt-8 bg-white overflow-hidden shadow sm:rounded-lg p-6">
+      <div class="md:mt-8 dark:text-black bg-white dark:bg-slate-600  overflow-hidden shadow sm:rounded-lg p-6">
       <p>
-I can deploy your project on Digital Ocean or Vultr from scratch.
+  I can deploy your project on Digital Ocean or Vultr from scratch.
       </p>
       </div>
       </div>
@@ -49,20 +51,20 @@ I can deploy your project on Digital Ocean or Vultr from scratch.
         Work Experiences
         </h2>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-      <div class="mt-8 bg-white overflow-hidden shadow sm:rounded-lg p-6">
+      <div class="mt-8 bg-whit dark:bg-slate-600 dark:text-black e overflow-hidden shadow sm:rounded-lg p-6">
       <div class="gap-4 flex">
       <h3 class="font-semibold leading-7 text-xl">Chanzglobal</h3>
       <span><img class="w-6" src="/chanz.jpeg"></span>
       </div>
       <span class="font-semibold">Junior Web Developer</span>
-      <p class="text-gray-600">A small startup company in Ortigas Pasig</p>
-      <span class="text-gray-600">February 2022 - Present</span>
+      <p class="text-gray-600 dark:text-black">A small startup company in Ortigas Pasig</p>
+      <span class="text-gray-600 dark:text-black">February 2022 - Present</span>
       
       </div>
       </div>
       <div class="flex justify-center pt-4 pb-4 space-x-2">
         <a href="https://github.com/stryfe200fps" target="_blank"><svg
-          class="w-6 h-6 text-gray-600 hover:text-gray-800 button--github"
+          class="w-6 h-6 text-gray-600 hover:text-gray-800 dark:hover:text-black button--github"
           xmlns="http://www.w3.org/2000/svg"
           xmlns:xlink="http://www.w3.org/1999/xlink"
           aria-hidden="true"
@@ -74,7 +76,7 @@ I can deploy your project on Digital Ocean or Vultr from scratch.
         ><path d="M12 2.247a10 10 0 0 0-3.162 19.487c.5.088.687-.212.687-.475c0-.237-.012-1.025-.012-1.862c-2.513.462-3.163-.613-3.363-1.175a3.636 3.636 0 0 0-1.025-1.413c-.35-.187-.85-.65-.013-.662a2.001 2.001 0 0 1 1.538 1.025a2.137 2.137 0 0 0 2.912.825a2.104 2.104 0 0 1 .638-1.338c-2.225-.25-4.55-1.112-4.55-4.937a3.892 3.892 0 0 1 1.025-2.688a3.594 3.594 0 0 1 .1-2.65s.837-.262 2.75 1.025a9.427 9.427 0 0 1 5 0c1.912-1.3 2.75-1.025 2.75-1.025a3.593 3.593 0 0 1 .1 2.65a3.869 3.869 0 0 1 1.025 2.688c0 3.837-2.338 4.687-4.563 4.937a2.368 2.368 0 0 1 .675 1.85c0 1.338-.012 2.413-.012 2.75c0 .263.187.575.687.475A10.005 10.005 0 0 0 12 2.247z" fill="currentColor" /></svg></a>
         <a href="https://twitter.com/adi_is_a_coder" target="_blank">
         <svg
-          class="w-6 h-6 text-gray-600 hover:text-gray-800"
+          class="w-6 h-6 text-gray-600 hover:text-gray-800 dark:hover:text-black"
           xmlns="http://www.w3.org/2000/svg"
           xmlns:xlink="http://www.w3.org/1999/xlink"
           aria-hidden="true"
@@ -90,7 +92,7 @@ I can deploy your project on Digital Ocean or Vultr from scratch.
         style="fill:rgba(75,85,99,var(--tw-text-opacity));"
           aria-hidden="true"
           role="img"
-          class="w-6 h-6 text-gray-600 hover:text-gray-800"
+          class="w-6 h-6 text-gray-600 hover:text-gray-800 dark:hover:text-black"
           preserveAspectRatio="xMidYMid meet"
           viewBox="0 0 24 24"
         xmlns="http://www.w3.org/2000/svg" width="32" height="32" ><path d="M0 0v24h24v-24h-24zm8 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.397-2.586 7-2.777 7 2.476v6.759z"/></svg>
@@ -125,6 +127,37 @@ export default {
 
     return age;
     }
+  },
+  mounted()
+  {
+
+      const darkModeToggle = document.getElementById('darkModeToggle');
+    const body = document.body;
+
+    darkModeToggle.addEventListener('click', () => {
+
+      if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+  document.documentElement.classList.add('dark')
+} else {
+  document.documentElement.classList.remove('dark')
+}
+
+// Whenever the user explicitly chooses light mode
+localStorage.theme = 'light'
+
+// Whenever the user explicitly chooses dark mode
+localStorage.theme = 'dark'
+
+// Whenever the user explicitly chooses to respect the OS preference
+localStorage.removeItem('theme')
+      
+    });
+
+ 
+
+ 
+
   }
 }
 </script>
+
