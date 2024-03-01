@@ -155,6 +155,7 @@ hr {
 
 .flex {
 	display:flex;
+	flex-wrap: wrap;
 }
 
 .flex-column {
@@ -165,8 +166,18 @@ hr {
 .flex * {
 	margin-left:2px;
 	margin-right:2px;
+
 }
 
 .tech-icon {
 	font-size:32px;
+}
+
+.no-margin {
+	margin: unset;
+}
+
+.wrapper {
+	margin-top: 2rem;
+	margin-bottom: 2rem;
 }
