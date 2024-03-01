@@ -157,6 +157,11 @@ hr {
 	display:flex;
 }
 
+.flex-column {
+	display:flex;
+	flex-direction: column;
+}
+
 .flex * {
 	margin-left:2px;
 	margin-right:2px;
