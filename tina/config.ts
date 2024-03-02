@@ -1,10 +1,5 @@
 import { defineConfig } from "tinacms";
 
-type BeforeSubmitFunction = (args: {
-  values: Record<string, unknown>
-  cms: TinaCMS
-  form: Form
-}) => Promise<void | Record<string, unknown>>
 
 // Your hosting provider likely exposes this as an environment variable
 const branch =
