@@ -1,15 +1,5 @@
 declare module 'astro:content' {
 	interface Render {
-		'.mdx': Promise<{
-			Content: import('astro').MarkdownInstance<{}>['Content'];
-			headings: import('astro').MarkdownHeading[];
-			remarkPluginFrontmatter: Record<string, any>;
-		}>;
-	}
-}
-
-declare module 'astro:content' {
-	interface Render {
 		'.md': Promise<{
 			Content: import('astro').MarkdownInstance<{}>['Content'];
 			headings: import('astro').MarkdownHeading[];
@@ -19,6 +9,8 @@ declare module 'astro:content' {
 }
 
 declare module 'astro:content' {
+	export { z } from 'astro/zod';
+
 	type Flatten<T> = T extends { [K: string]: infer U } ? U : never;
 
 	export type CollectionKey = keyof AnyEntryMap;
@@ -26,6 +18,53 @@ declare module 'astro:content' {
 
 	export type ContentCollectionKey = keyof ContentEntryMap;
 	export type DataCollectionKey = keyof DataEntryMap;
+
+	// This needs to be in sync with ImageMetadata
+	export type ImageFunction = () => import('astro/zod').ZodObject<{
+		src: import('astro/zod').ZodString;
+		width: import('astro/zod').ZodNumber;
+		height: import('astro/zod').ZodNumber;
+		format: import('astro/zod').ZodUnion<
+			[
+				import('astro/zod').ZodLiteral<'png'>,
+				import('astro/zod').ZodLiteral<'jpg'>,
+				import('astro/zod').ZodLiteral<'jpeg'>,
+				import('astro/zod').ZodLiteral<'tiff'>,
+				import('astro/zod').ZodLiteral<'webp'>,
+				import('astro/zod').ZodLiteral<'gif'>,
+				import('astro/zod').ZodLiteral<'svg'>,
+				import('astro/zod').ZodLiteral<'avif'>,
+			]
+		>;
+	}>;
+
+	type BaseSchemaWithoutEffects =
+		| import('astro/zod').AnyZodObject
+		| import('astro/zod').ZodUnion<[BaseSchemaWithoutEffects, ...BaseSchemaWithoutEffects[]]>
+		| import('astro/zod').ZodDiscriminatedUnion<string, import('astro/zod').AnyZodObject[]>
+		| import('astro/zod').ZodIntersection<BaseSchemaWithoutEffects, BaseSchemaWithoutEffects>;
+
+	type BaseSchema =
+		| BaseSchemaWithoutEffects
+		| import('astro/zod').ZodEffects<BaseSchemaWithoutEffects>;
+
+	export type SchemaContext = { image: ImageFunction };
+
+	type DataCollectionConfig<S extends BaseSchema> = {
+		type: 'data';
+		schema?: S | ((context: SchemaContext) => S);
+	};
+
+	type ContentCollectionConfig<S extends BaseSchema> = {
+		type?: 'content';
+		schema?: S | ((context: SchemaContext) => S);
+	};
+
+	type CollectionConfig<S> = ContentCollectionConfig<S> | DataCollectionConfig<S>;
+
+	export function defineCollection<S extends BaseSchema>(
+		input: CollectionConfig<S>
+	): CollectionConfig<S>;
 
 	type AllValuesOf<T> = T extends any ? T[keyof T] : never;
 	type ValidContentEntrySlug<C extends keyof ContentEntryMap> = AllValuesOf<
@@ -136,41 +175,6 @@ declare module 'astro:content' {
 
 	type ContentEntryMap = {
 		"blog": {
-"first-post.md": {
-	id: "first-post.md";
-  slug: "first-post";
-  body: string;
-  collection: "blog";
-  data: InferEntrySchema<"blog">
-} & { render(): Render[".md"] };
-"markdown-style-guide.md": {
-	id: "markdown-style-guide.md";
-  slug: "markdown-style-guide";
-  body: string;
-  collection: "blog";
-  data: InferEntrySchema<"blog">
-} & { render(): Render[".md"] };
-"second-post.md": {
-	id: "second-post.md";
-  slug: "second-post";
-  body: string;
-  collection: "blog";
-  data: InferEntrySchema<"blog">
-} & { render(): Render[".md"] };
-"third-post.md": {
-	id: "third-post.md";
-  slug: "third-post";
-  body: string;
-  collection: "blog";
-  data: InferEntrySchema<"blog">
-} & { render(): Render[".md"] };
-"using-mdx.mdx": {
-	id: "using-mdx.mdx";
-  slug: "using-mdx";
-  body: string;
-  collection: "blog";
-  data: InferEntrySchema<"blog">
-} & { render(): Render[".mdx"] };
 };
 
 	};
@@ -181,5 +185,5 @@ declare module 'astro:content' {
 
 	type AnyEntryMap = ContentEntryMap & DataEntryMap;
 
-	export type ContentConfig = typeof import("../src/content/config.js");
+	type ContentConfig = never;
 }
