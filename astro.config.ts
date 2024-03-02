@@ -6,6 +6,9 @@ import remarkCollapse from "remark-collapse";
 import sitemap from "@astrojs/sitemap";
 import { SITE } from "./src/config";
 
+import sentry from "@sentry/astro";
+import spotlightjs from "@spotlightjs/astro";
+
 // https://astro.build/config
 export default defineConfig({
   site: SITE.website,
@@ -15,6 +18,8 @@ export default defineConfig({
     }),
     react(),
     sitemap(),
+    sentry(),
+    spotlightjs(),
   ],
   markdown: {
     remarkPlugins: [

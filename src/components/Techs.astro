@@ -1,0 +1,31 @@
+---
+import { TECHS } from "@config";
+import LinkButton from "./LinkButton.astro";
+import techIcons from "@assets/techIcons";
+
+export interface Props {
+  centered?: boolean;
+}
+
+const { centered = false } = Astro.props;
+---
+
+<div class={`tech-icons ${centered ? "flex" : ""}`}>
+  {
+    TECHS.filter(tech => tech.active).map(tech => (
+      <>
+        <Fragment set:html={techIcons[tech.name]} />
+        <span class="sr-only">{tech.linkTitle}</span>
+      </>
+    ))
+  }
+</div>
+
+<style>
+  .tech-icons {
+    @apply flex-wrap justify-center gap-1;
+  }
+  .link-button {
+    @apply p-2 hover:rotate-6 sm:p-1;
+  }
+</style>

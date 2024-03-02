@@ -7,8 +7,9 @@ import LinkButton from "@components/LinkButton.astro";
 import Hr from "@components/Hr.astro";
 import Card from "@components/Card";
 import Socials from "@components/Socials.astro";
+import Techs from "@components/Techs.astro";
 import getSortedPosts from "@utils/getSortedPosts";
-import { SOCIALS } from "@config";
+import { SOCIALS, TECHS } from "@config";
 
 const posts = await getCollection("blog");
 
@@ -17,6 +18,7 @@ const featuredPosts = sortedPosts.filter(({ data }) => data.featured);
 const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
 
 const socialCount = SOCIALS.filter(social => social.active).length;
+const techCount = TECHS.filter(tech => tech.active).length;
 ---
 
 <Layout>
@@ -24,13 +26,16 @@ const socialCount = SOCIALS.filter(social => social.active).length;
   <main id="main-content">
     <section id="hero">
       <h1>Hi, I'm Adrian.</h1>
-      <a
+      <!-- <a
         target="_blank"
         href="/rss.xml"
         class="rss-link"
         aria-label="rss feed"
         title="RSS Feed"
       >
+
+   
+
         <svg xmlns="http://www.w3.org/2000/svg" class="rss-icon"
           ><path
             d="M19 20.001C19 11.729 12.271 5 4 5v2c7.168 0 13 5.832 13 13.001h2z"
@@ -39,24 +44,20 @@ const socialCount = SOCIALS.filter(social => social.active).length;
           ></path><circle cx="6" cy="18" r="2"></circle>
         </svg>
         <span class="sr-only">RSS Feed</span>
-      </a>
+      </a> -->
 
       <p>
         You can likewise call me <span
           class="underline decoration-dashed underline-offset-4 hover:text-skin-accent"
           >Adi</span
         >. I am 28 years old and love to tinker stuffs and do web programming
-        the most.
+        the most. I have been working as a web developer since February 2017,
+        and I love exploring new technologies and tools to speed up my workflow.
       </p>
 
-      <p>
-        I have been working as a web developer since February 2017, and I love
-        exploring new technologies and tools to speed up my workflow.
-
-        <!-- I enjoy
+      <!-- I enjoy
         designing and building systems from scratch, but I'm also engaged in
         upgrading a legacy system to the latest. -->
-      </p>
 
       <!-- <p>
         When I'm not coding, I like to play guitar and table tennis. I'm always up for a challenge and a fun time.
@@ -77,8 +78,19 @@ const socialCount = SOCIALS.filter(social => social.active).length;
       </p> -->
       {
         // only display if at least one social link is enabled
+        techCount > 0 && (
+          <div class="tech-wrapper">
+            <div class="social-links">Languages I know: </div>
+            <Techs />
+          </div>
+        )
+      }
+
+      {
+        // only display if at least one social link is enabled
         socialCount > 0 && (
           <div class="social-wrapper">
+            <div class="social-links">Social Links:</div>
             <Socials />
           </div>
         )
@@ -160,6 +172,9 @@ const socialCount = SOCIALS.filter(social => social.active).length;
     @apply my-2;
   }
   .social-wrapper {
+    @apply mt-4 flex flex-col sm:flex-row sm:items-center;
+  }
+  .tech-wrapper {
     @apply mt-4 flex flex-col sm:flex-row sm:items-center;
   }
   .social-links {

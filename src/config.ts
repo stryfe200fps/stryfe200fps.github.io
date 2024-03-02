@@ -1,4 +1,4 @@
-import type { Site, SocialObjects } from "./types";
+import type { Site, SocialObjects, TechObjects } from "./types";
 
 export const SITE: Site = {
   website: "https://adi.is-a.dev", // replace this with your deployed domain
@@ -22,6 +22,33 @@ export const LOGO_IMAGE = {
   width: 216,
   height: 46,
 };
+
+export const TECHS: TechObjects = [
+  {
+    name: "Php",
+    href: "",
+    linkTitle: `PHP`,
+    active: true,
+  },
+  {
+    name: "Javascript",
+    href: "",
+    linkTitle: `javascript`,
+    active: true,
+  },
+  {
+    name: "Csharp",
+    href: "",
+    linkTitle: `csharp`,
+    active: true,
+  },
+  {
+    name: "Rust",
+    href: "#",
+    linkTitle: `rust`,
+    active: true,
+  },
+];
 
 export const SOCIALS: SocialObjects = [
   {

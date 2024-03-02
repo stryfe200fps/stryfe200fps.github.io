@@ -1,4 +1,5 @@
 import type socialIcons from "@assets/socialIcons";
+import type techIcons from "@assets/techIcons";
 
 export type Site = {
   website: string;
@@ -13,6 +14,13 @@ export type Site = {
 
 export type SocialObjects = {
   name: keyof typeof socialIcons;
+  href: string;
+  active: boolean;
+  linkTitle: string;
+}[];
+
+export type TechObjects = {
+  name: keyof typeof techIcons;
   href: string;
   active: boolean;
   linkTitle: string;
