@@ -1,5 +1,0 @@
----
-title: Bartolome
----
-
-Jose garinyo
