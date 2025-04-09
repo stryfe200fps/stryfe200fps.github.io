@@ -1,11 +1,67 @@
 
 @font-face {
   font-family: 'Outfit';
-  src: url('Outfit.ttf') format('truetype');
-  font-weight: 100 900; 
-  font-stretch: 75% 125%; 
-  font-style: normal; 
+  src: url('/fonts/outfit/outfit-latin-100-normal.ttf') format('truetype');
+  font-weight: 100;
+  font-style: normal;
 }
+
+@font-face {
+  font-family: 'Outfit';
+  src: url('/fonts/outfit/outfit-latin-200-normal.ttf') format('truetype');
+  font-weight: 200;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Outfit';
+  src: url('/fonts/outfit/outfit-latin-300-normal.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Outfit';
+  src: url('/fonts/outfit/outfit-latin-400-normal.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Outfit';
+  src: url('/fonts/outfit/outfit-latin-500-normal.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Outfit';
+  src: url('/fonts/outfit/outfit-latin-600-normal.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Outfit';
+  src: url('/fonts/outfit/outfit-latin-700-normal.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Outfit';
+  src: url('/fonts/outfit/outfit-latin-800-normal.ttf') format('truetype');
+  font-weight: 800;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Outfit';
+  src: url('/fonts/outfit/outfit-latin-900-normal.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+}
+
 
 @font-face {
   font-family: 'Satoshi';
@@ -116,7 +172,7 @@ table {
 
 
 .outfit {
-  font-family: 'Outfit', sans-serif;
+  font-family: 'Outfit', open-sans;
 }
 
 .satoshi {
@@ -141,7 +197,7 @@ p {
 }
 
 h2, h3, h4, h5, h6 {
-  font-family: 'Outfit', sans-serif;
+  font-family: 'Outfit', open-sans;
   font-weight: 600;
 }
 
@@ -181,10 +237,10 @@ h2, h3, h4, h5, h6 {
 
 
 
-.content {
+.main-wrapper {
   max-width: 768px;
   width: 100%;
-  margin: 0 auto;
+  margin: 50px auto;
 	z-index: 1;
 	position: relative;
 }
