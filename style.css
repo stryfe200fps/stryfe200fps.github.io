@@ -1,4 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,699;1,699&family=Outfit:wght@100..900&display=swap');
+
+@font-face {
+  font-family: 'Outfit';
+  src: url('Outfit.ttf') format('truetype');
+  font-weight: 100 900; 
+  font-stretch: 75% 125%; 
+  font-style: normal; 
+}
 
 @font-face {
   font-family: 'Satoshi';
