@@ -126,6 +126,23 @@
       50% { opacity: 1; transform: scale(1.2); }
       100% { opacity: 0; transform: scale(0.8); }
     }
+
+  .cake {
+  display: block;           /* Make image a block element to enable centering */
+  margin: 0 auto;           /* Center horizontally */
+  max-width: 100%;          /* Allow the image to scale down with the screen size */
+  height: auto;             /* Maintain aspect ratio */
+  max-height: 300px;        /* Limit maximum height to avoid overly large image */
+}
+
+/* Optional: Use a media query for even better mobile adjustment */
+@media (max-width: 600px) {
+  .cake {
+    max-height: 200px;      /* Limit height more on smaller screens */
+    width: 90%;             /* Slightly smaller width on mobiles */
+  }
+}
+
   </style>
 </head>
 <body onclick="startMagicalCelebration()">
@@ -143,7 +160,7 @@
   <div class="subtitle">Bawi ako next time hehe.. Thank you love..  </div>
   <div class="subtitle">Wag kang mag alala di kita iiwan hehehe</div>
   <div class="subtitle">Click anywhere to cast your spell</div>
-        <img src="are.png" />
+        <img class="cake" src="are.png" />
 
   <!-- Lightning Canvas -->
   <canvas id="lightning-canvas"></canvas>
