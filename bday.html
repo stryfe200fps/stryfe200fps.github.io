@@ -26,6 +26,7 @@
       overflow-x: hidden;
       color: #f5f5f5;
       padding: 20px;
+      cursor: pointer;
     }
 
     .container {
@@ -34,11 +35,17 @@
       z-index: 2;
       width: 100%;
       max-width: 800px;
-      padding: 20px;
+      padding: 30px;
       background: rgba(15, 23, 42, 0.7);
       border-radius: 20px;
       box-shadow: 0 0 30px rgba(255, 215, 0, 0.4);
       backdrop-filter: blur(5px);
+      animation: containerGlow 3s infinite alternate;
+    }
+
+    @keyframes containerGlow {
+      0% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.4); }
+      100% { box-shadow: 0 0 40px rgba(255, 215, 0, 0.8), 0 0 60px rgba(255, 140, 0, 0.6); }
     }
 
     h1 {
@@ -87,35 +94,23 @@
       z-index: 2;
     }
 
-    /* Controls for fireworks */
-    .controls {
-      margin-top: 20px;
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-      flex-wrap: wrap;
-    }
-
-    .btn {
-      padding: 12px 20px;
-      background: linear-gradient(to bottom, #ffd700, #ffae00);
-      color: #0b0c10;
-      border: none;
-      border-radius: 50px;
-      font-family: 'MedievalSharp', cursive;
+    .instructions {
+      margin-top: 25px;
       font-size: 1rem;
-      cursor: pointer;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-      transition: all 0.3s ease;
+      color: #aaa;
+      animation: pulse 2s infinite;
     }
 
-    .btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+    @keyframes pulse {
+      0% { opacity: 0.6; }
+      50% { opacity: 1; }
+      100% { opacity: 0.6; }
     }
 
-    .btn:active {
-      transform: translateY(1px);
+    /* Heart animation */
+    .heart {
+      display: inline-block;
+      animation: pulse 1.5s infinite;
     }
 
     /* Mobile responsiveness */
@@ -128,10 +123,9 @@
       .message {
         font-size: 1.2rem;
       }
-
-      .btn {
-        padding: 10px 16px;
-        font-size: 0.9rem;
+      
+      .container {
+        padding: 20px;
       }
     }
 
@@ -150,15 +144,6 @@
       
       .container {
         padding: 15px;
-      }
-
-      .controls {
-        flex-direction: column;
-        align-items: center;
-      }
-
-      .btn {
-        width: 80%;
       }
     }
 
@@ -180,18 +165,6 @@
         padding-bottom: 10px;
       }
     }
-
-    /* Heart animation */
-    .heart {
-      display: inline-block;
-      animation: pulse 1.5s infinite;
-    }
-
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.2); }
-      100% { transform: scale(1); }
-    }
   </style>
 </head>
 <body>
@@ -202,20 +175,7 @@
     <div class="message">Mahal na mahal kita <span class="heart">❤️</span></div>
     <div class="message">Di kita iiwan <span class="heart">;*</span></div>
     
-
-
-
-
-
-    <h1>Thank youuuuuuuuuuu ;*</h1>
-
-
-     <img src="./are.png" />
-    <div class="controls">
-      <button class="btn" id="moreFireworks">More Fireworks! 🎆</button>
-      <button class="btn" id="moreConfetti">More Confetti! 🎊</button>
-      <button class="btn" id="magicButton">Magic! ✨</button>
-    </div>
+    <div class="instructions">Tap/click anywhere for more fireworks!</div>
   </div>
 
   <div class="fireworks-container" id="fireworks-container"></div>
@@ -226,10 +186,12 @@
     const confettiCanvas = document.getElementById('confetti-canvas');
     const myConfetti = confetti.create(confettiCanvas, { resize: true, useWorker: true });
     const fireworksContainer = document.getElementById('fireworks-container');
+    
+    // Initialize fireworks with custom options
     const fireworks = new Fireworks(fireworksContainer, {
       autoresize: true,
       opacity: 0.5,
-      acceleration: 1.02,
+      acceleration: 1.05,
       friction: 0.97,
       gravity: 1.5,
       particles: 100,
@@ -270,17 +232,18 @@
         max: 0.03
       },
       mouse: {
-        click: true,
+        click: false,
         move: false,
         max: 1
       }
     });
 
-    // Start the fireworks
+    // Start the fireworks automatically
     fireworks.start();
 
     // Function to handle confetti animation
     function startConfetti() {
+      // Initial burst
       myConfetti({
         particleCount: 200,
         spread: 160,
@@ -288,15 +251,19 @@
         colors: ['#740001', '#d3a625', '#1a472a', '#2a623d', '#0e1a40', '#222f5b', '#ecb939', '#946b2d']
       });
 
+      // Create custom shapes
       var scalar = 2;
       var wand = confetti.shapeFromText({ text: "🪄", scalar });
       var sparkle = confetti.shapeFromText({ text: "✨", scalar });
       var wizard = confetti.shapeFromText({ text: "🧙‍♀️", scalar });
       var lightning = confetti.shapeFromText({ text: "⚡", scalar });
+      var heart = confetti.shapeFromText({ text: "❤️", scalar });
+      var star = confetti.shapeFromText({ text: "⭐", scalar });
 
+      // Special emoji confetti after a delay
       setTimeout(() => {
         myConfetti({
-          shapes: [wand, sparkle, wizard, lightning],
+          shapes: [wand, sparkle, wizard, lightning, heart, star],
           scalar,
           particleCount: 80,
           spread: 360,
@@ -305,12 +272,13 @@
         });
       }, 1200);
 
-      var duration = 6 * 1000;
+      // Continuous gentle confetti fall
+      var duration = 15 * 1000;
       var end = Date.now() + duration;
 
       (function frame() {
         myConfetti({
-          particleCount: 5,
+          particleCount: 3,
           spread: 360,
           startVelocity: 15,
           origin: { x: Math.random(), y: Math.random() * 0.3 },
@@ -322,52 +290,21 @@
       })();
     }
 
-    // Run confetti on load
-    window.addEventListener('load', startConfetti);
-    
-    // Add touch support for mobile devices to trigger confetti
-    document.body.addEventListener('touchstart', function() {
-      myConfetti({
-        particleCount: 30,
-        spread: 70,
-        origin: { y: 0.6 },
-        colors: ['#ffd700', '#fff', '#ffae00']
-      });
-    });
-
-    // Button event handlers
-    document.getElementById('moreFireworks').addEventListener('click', function() {
+    // Function to trigger both fireworks and confetti
+    function triggerEffects() {
+      // Shoot several fireworks
       for (let i = 0; i < 5; i++) {
         setTimeout(() => {
           fireworks.shoot();
         }, i * 300);
       }
-    });
-
-    document.getElementById('moreConfetti').addEventListener('click', function() {
-      startConfetti();
-    });
-
-    document.getElementById('magicButton').addEventListener('click', function() {
-      // Intensify fireworks
-      fireworks.setOptions({
-        particles: 150,
-        intensity: 40
-      });
       
-      // Shoot several fireworks
-      for (let i = 0; i < 10; i++) {
-        setTimeout(() => {
-          fireworks.shoot();
-        }, i * 200);
-      }
-      
-      // Special confetti blast
+      // Add confetti burst
       myConfetti({
-        particleCount: 300,
+        particleCount: 100,
         spread: 100,
-        startVelocity: 45,
-        origin: { y: 0.5 }
+        startVelocity: 35,
+        origin: { y: 0.6 }
       });
       
       // Add some emoji confetti
@@ -380,13 +317,33 @@
         myConfetti({
           shapes: [heart, star, sparkle],
           scalar,
-          particleCount: 50,
+          particleCount: 30,
           spread: 360,
-          startVelocity: 35,
-          origin: { x: 0.5, y: 0.4 }
+          startVelocity: 25,
+          origin: { x: Math.random(), y: 0.5 }
         });
-      }, 800);
+      }, 500);
+    }
+
+    // Run effects on load
+    window.addEventListener('load', function() {
+      startConfetti();
+      
+      // Continue with gentle confetti after initial burst
+      setInterval(() => {
+        myConfetti({
+          particleCount: 5,
+          angle: 90,
+          spread: 100,
+          startVelocity: 25,
+          origin: { x: Math.random(), y: 1 }
+        });
+      }, 5000);
     });
+
+    // Add click/touch support to trigger effects
+    document.body.addEventListener('click', triggerEffects);
+    document.body.addEventListener('touchstart', triggerEffects);
 
     // Adjust fireworks for mobile performance
     if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
