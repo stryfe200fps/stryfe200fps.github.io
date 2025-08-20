@@ -3,21 +3,56 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Celebration Effects</title>
+  <title>Magical Harry Potter Celebration</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&display=swap');
+    
     body {
       margin: 0;
-      background: #111;
-      color: white;
+      background: radial-gradient(ellipse at center, #1a0b2e 0%, #16213e 50%, #0f3460 100%);
+      color: #f4f4f4;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       height: 100vh;
+      font-family: 'Cinzel', serif;
+      overflow: hidden;
+      cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><text y="20" font-size="20">⚡</text></svg>') 12 12, auto;
+    }
+
+    .magical-title {
+      position: relative;
+      z-index: 10000;
+      font-size: 2.5rem;
+      font-weight: 600;
+      text-align: center;
+      margin-bottom: 20px;
+      background: linear-gradient(45deg, #ffd700, #ffed4e, #ffd700);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+      animation: sparkle 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes sparkle {
+      0% { filter: brightness(1) drop-shadow(0 0 5px #ffd700); }
+      100% { filter: brightness(1.2) drop-shadow(0 0 15px #ffd700); }
+    }
+
+    .subtitle {
+      position: relative;
+      z-index: 10000;
+      font-size: 1.2rem;
+      text-align: center;
+      color: #b8860b;
+      margin-bottom: 30px;
+      opacity: 0.9;
     }
 
     #fireworks-container,
-    #confetti-canvas {
+    #confetti-canvas,
+    #lightning-canvas {
       position: fixed;
       top: 0;
       left: 0;
@@ -27,30 +62,100 @@
       z-index: 9999;
     }
 
-    button {
+    .wand-button {
       position: relative;
       z-index: 10000;
-      padding: 10px 20px;
+      padding: 15px 30px;
       font-size: 18px;
+      font-family: 'Cinzel', serif;
+      background: linear-gradient(45deg, #8b4513, #a0522d);
+      color: #ffd700;
+      border: 2px solid #ffd700;
+      border-radius: 25px;
       cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .wand-button:hover {
+      background: linear-gradient(45deg, #a0522d, #8b4513);
+      box-shadow: 0 6px 20px rgba(255, 215, 0, 0.5);
+      transform: translateY(-2px);
+    }
+
+    .floating-elements {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 9998;
+    }
+
+    .floating-symbol {
+      position: absolute;
+      font-size: 2rem;
+      opacity: 0.7;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .floating-symbol:nth-child(1) { left: 10%; top: 20%; animation-delay: 0s; }
+    .floating-symbol:nth-child(2) { left: 80%; top: 30%; animation-delay: 1s; }
+    .floating-symbol:nth-child(3) { left: 15%; top: 70%; animation-delay: 2s; }
+    .floating-symbol:nth-child(4) { left: 70%; top: 80%; animation-delay: 3s; }
+    .floating-symbol:nth-child(5) { left: 50%; top: 15%; animation-delay: 4s; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.7; }
+      50% { transform: translateY(-20px) rotate(180deg); opacity: 1; }
+    }
+
+    .lightning-bolt {
+      position: absolute;
+      color: #00bfff;
+      font-size: 3rem;
+      opacity: 0;
+      animation: lightning 0.3s ease-in-out;
+    }
+
+    @keyframes lightning {
+      0% { opacity: 0; transform: scale(0.5); }
+      50% { opacity: 1; transform: scale(1.2); }
+      100% { opacity: 0; transform: scale(0.8); }
     }
   </style>
 </head>
-<body onClick="startFullCelebration()"">
+<body onclick="startMagicalCelebration()">
+  <!-- Floating magical elements -->
+  <div class="floating-elements">
+    <div class="floating-symbol">⚡</div>
+    <div class="floating-symbol">🔮</div>
+    <div class="floating-symbol">🦉</div>
+    <div class="floating-symbol">📜</div>
+    <div class="floating-symbol">✨</div>
+  </div>
 
+  <!-- Title -->
+  <div class="magical-title">EXPECTO PATRONUM!</div>
+  <div class="subtitle">Click anywhere to cast your spell</div>
+
+  <!-- Lightning Canvas -->
+  <canvas id="lightning-canvas"></canvas>
   <!-- Confetti Canvas -->
   <canvas id="confetti-canvas"></canvas>
-
   <!-- Fireworks Container -->
   <div id="fireworks-container"></div>
 
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/fireworks-js/dist/fireworks.js"></script>
-
   <script>
-    let confettiCanvas, myConfetti, fireworksContainer, fireworks;
+    let confettiCanvas, myConfetti, fireworksContainer, fireworks, lightningCanvas, lightningCtx;
     let isInitialized = false;
+    let lightningBolts = [];
 
     function initializeEffects() {
       if (isInitialized) return;
@@ -62,7 +167,13 @@
         useWorker: true
       });
 
-      // Fireworks setup
+      // Lightning canvas setup
+      lightningCanvas = document.getElementById('lightning-canvas');
+      lightningCtx = lightningCanvas.getContext('2d');
+      lightningCanvas.width = window.innerWidth;
+      lightningCanvas.height = window.innerHeight;
+
+      // Fireworks setup with Harry Potter colors
       fireworksContainer = document.getElementById('fireworks-container');
       if (typeof Fireworks === "undefined") {
         console.error("❌ Fireworks library not loaded correctly!");
@@ -71,78 +182,190 @@
 
       fireworks = new Fireworks(fireworksContainer, {
         autoresize: true,
-        opacity: 0.7,
+        opacity: 0.8,
         acceleration: 1.05,
-        friction: 0.97,
-        gravity: 1.5,
-        particles: 80,
-        traceLength: 3,
-        traceSpeed: 10,
-        explosion: 5,
-        intensity: 25,
-        flickering: 50,
+        friction: 0.95,
+        gravity: 1.2,
+        particles: 100,
+        traceLength: 4,
+        traceSpeed: 12,
+        explosion: 6,
+        intensity: 30,
+        flickering: 60,
         lineStyle: 'round',
-        hue: { min: 0, max: 360 },
-        delay: { min: 20, max: 40 },
-        rocketsPoint: { min: 50, max: 50 },
-        lineWidth: { explosion: { min: 1, max: 3 }, trace: { min: 1, max: 2 } },
-        brightness: { min: 50, max: 80 },
-        decay: { min: 0.015, max: 0.03 },
+        // Harry Potter house colors
+        hue: { min: 0, max: 50 }, // Gold/Red range
+        delay: { min: 15, max: 35 },
+        rocketsPoint: { min: 40, max: 60 },
+        lineWidth: { explosion: { min: 2, max: 4 }, trace: { min: 1, max: 3 } },
+        brightness: { min: 60, max: 90 },
+        decay: { min: 0.01, max: 0.025 },
         mouse: { click: false, move: false, max: 1 }
       });
 
       // Mobile adjustments
       if (/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
         fireworks.setOptions({
-          particles: 60,
-          intensity: 18
+          particles: 70,
+          intensity: 20
         });
       }
 
       isInitialized = true;
     }
 
-    async function startFullCelebration() {
+    function createLightningBolt(x, y) {
+      const bolt = document.createElement('div');
+      bolt.className = 'lightning-bolt';
+      bolt.innerHTML = '⚡';
+      bolt.style.left = (x - 25) + 'px';
+      bolt.style.top = (y - 25) + 'px';
+      
+      document.body.appendChild(bolt);
+      
+      setTimeout(() => {
+        bolt.remove();
+      }, 300);
+    }
+
+    function drawMagicalLightning() {
+      lightningCtx.clearRect(0, 0, lightningCanvas.width, lightningCanvas.height);
+      
+      for (let i = 0; i < 3; i++) {
+        setTimeout(() => {
+          const startX = Math.random() * lightningCanvas.width;
+          const startY = 0;
+          const endX = startX + (Math.random() - 0.5) * 200;
+          const endY = lightningCanvas.height;
+
+          lightningCtx.strokeStyle = `hsl(${200 + Math.random() * 60}, 100%, ${70 + Math.random() * 30}%)`;
+          lightningCtx.lineWidth = 3 + Math.random() * 3;
+          lightningCtx.shadowColor = lightningCtx.strokeStyle;
+          lightningCtx.shadowBlur = 15;
+          
+          lightningCtx.beginPath();
+          lightningCtx.moveTo(startX, startY);
+          
+          // Create zigzag pattern
+          let currentX = startX;
+          let currentY = startY;
+          const segments = 8;
+          
+          for (let j = 0; j < segments; j++) {
+            const nextY = startY + (endY - startY) * (j + 1) / segments;
+            const nextX = currentX + (Math.random() - 0.5) * 100;
+            lightningCtx.lineTo(nextX, nextY);
+            currentX = nextX;
+            currentY = nextY;
+          }
+          
+          lightningCtx.stroke();
+
+          // Clear lightning after short time
+          setTimeout(() => {
+            lightningCtx.clearRect(0, 0, lightningCanvas.width, lightningCanvas.height);
+          }, 200);
+        }, i * 100);
+      }
+    }
+
+    async function startMagicalCelebration() {
       initializeEffects();
 
-      // Start fireworks
+      // Create lightning at click position if available
+      if (event) {
+        createLightningBolt(event.clientX, event.clientY);
+      }
+
+      // Draw magical lightning
+      drawMagicalLightning();
+
+      // Start magical fireworks with house colors
       fireworks.start();
 
-      // Emoji shapes
-      const emoji = confetti.shapeFromText({ text: '🎉', scalar: 2 });
-      const heart = confetti.shapeFromText({ text: '❤️', scalar: 2 });
+      // Harry Potter themed emoji shapes
+      const lightning = confetti.shapeFromText({ text: '⚡', scalar: 2 });
+      const wand = confetti.shapeFromText({ text: '🪄', scalar: 2 });
+      const owl = confetti.shapeFromText({ text: '🦉', scalar: 2 });
+      const star = confetti.shapeFromText({ text: '✨', scalar: 2 });
+      const castle = confetti.shapeFromText({ text: '🏰', scalar: 2 });
 
-      // Burst confetti
+      // Burst magical confetti with Hogwarts colors
       myConfetti({
-        particleCount: 150,
-        spread: 120,
+        particleCount: 200,
+        spread: 140,
         origin: { y: 0.6 },
-        shapes: [emoji, heart, 'circle']
+        shapes: [lightning, wand, owl, star, castle, 'circle'],
+        colors: ['#ffd700', '#8b0000', '#000080', '#228b22', '#4b0082', '#ff4500']
       });
 
-      // Keep confetti coming
-      const duration = 3000; // 3s
-      const end = Date.now() + duration;
+      // Multiple bursts from different positions
+      setTimeout(() => {
+        myConfetti({
+          particleCount: 100,
+          spread: 100,
+          origin: { x: 0.2, y: 0.7 },
+          colors: ['#ffd700', '#8b0000', '#ffffff']
+        });
+      }, 200);
 
+      setTimeout(() => {
+        myConfetti({
+          particleCount: 100,
+          spread: 100,
+          origin: { x: 0.8, y: 0.7 },
+          colors: ['#000080', '#228b22', '#ffd700']
+        });
+      }, 400);
+
+      // Continuous magical sparkles
+      const duration = 4000;
+      const end = Date.now() + duration;
+      
       (function frame() {
         myConfetti({
-          particleCount: 3,
-          spread: 70,
-          origin: { x: Math.random(), y: Math.random() - 0.2 }
+          particleCount: 5,
+          spread: 80,
+          origin: { x: Math.random(), y: Math.random() - 0.2 },
+          shapes: [lightning, star],
+          colors: ['#ffd700', '#ffffff', '#00bfff']
         });
-
+        
         if (Date.now() < end) {
           requestAnimationFrame(frame);
         }
       })();
 
-      // Stop fireworks after 5s
+      // Random lightning bolts during celebration
+      for (let i = 0; i < 8; i++) {
+        setTimeout(() => {
+          const x = Math.random() * window.innerWidth;
+          const y = Math.random() * window.innerHeight * 0.7;
+          createLightningBolt(x, y);
+        }, Math.random() * 3000);
+      }
+
+      // Stop fireworks after 6 seconds
       setTimeout(() => {
         fireworks.stop();
-      }, 5000);
+      }, 6000);
+
+      // Additional lightning strikes
+      setTimeout(() => {
+        drawMagicalLightning();
+      }, 2000);
     }
 
-    startFullCelebration();
+    // Handle window resize for lightning canvas
+    window.addEventListener('resize', () => {
+      if (lightningCanvas) {
+        lightningCanvas.width = window.innerWidth;
+        lightningCanvas.height = window.innerHeight;
+      }
+    });
+
+    // Auto-start the celebration
+    setTimeout(startMagicalCelebration, 1000);
   </script>
 </body>
 </html>
