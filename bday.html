@@ -3,7 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Baby Areeyako</title>
+  <title>Happy Birthday Areeya Mae!</title>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/fireworks-js@2.x/dist/index.umd.js"></script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap');
     
@@ -29,10 +31,14 @@
     .container {
       text-align: center;
       position: relative;
-      z-index: 1;
+      z-index: 2;
       width: 100%;
       max-width: 800px;
       padding: 20px;
+      background: rgba(15, 23, 42, 0.7);
+      border-radius: 20px;
+      box-shadow: 0 0 30px rgba(255, 215, 0, 0.4);
+      backdrop-filter: blur(5px);
     }
 
     h1 {
@@ -62,14 +68,54 @@
       padding: 0 10px;
     }
 
-    canvas {
+    .fireworks-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+
+    .confetti-canvas {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
       pointer-events: none;
-      z-index: 0;
+      z-index: 2;
+    }
+
+    /* Controls for fireworks */
+    .controls {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 12px 20px;
+      background: linear-gradient(to bottom, #ffd700, #ffae00);
+      color: #0b0c10;
+      border: none;
+      border-radius: 50px;
+      font-family: 'MedievalSharp', cursive;
+      font-size: 1rem;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+    }
+
+    .btn:active {
+      transform: translateY(1px);
     }
 
     /* Mobile responsiveness */
@@ -81,6 +127,11 @@
       
       .message {
         font-size: 1.2rem;
+      }
+
+      .btn {
+        padding: 10px 16px;
+        font-size: 0.9rem;
       }
     }
 
@@ -99,6 +150,15 @@
       
       .container {
         padding: 15px;
+      }
+
+      .controls {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .btn {
+        width: 80%;
       }
     }
 
@@ -120,23 +180,104 @@
         padding-bottom: 10px;
       }
     }
+
+    /* Heart animation */
+    .heart {
+      display: inline-block;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
   </style>
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
 </head>
 <body>
   <div class="container">
     <h1>⚡ Happy 31st Birthday, Areeya Mae! ⚡</h1>
     <div class="message">🪄 Mischief Managed! May your day be filled with magic & love. ✨</div>
-    <div class="message">Bawi ako love pramis ;*</div>
-    <div class="message">Mahal na mahal kita</div>
-    <div class="message">Di kita iiwan ;*</div>
+    <div class="message">Bawi ako love pramis <span class="heart">;*</span></div>
+    <div class="message">Mahal na mahal kita <span class="heart">❤️</span></div>
+    <div class="message">Di kita iiwan <span class="heart">;*</span></div>
+    
+
+
+
+
+
+    <h1>Thank youuuuuuuuuuu ;*</h1>
+
+
+     <img src="./are.png" />
+    <div class="controls">
+      <button class="btn" id="moreFireworks">More Fireworks! 🎆</button>
+      <button class="btn" id="moreConfetti">More Confetti! 🎊</button>
+      <button class="btn" id="magicButton">Magic! ✨</button>
+    </div>
   </div>
 
-  <canvas id="myCanvas"></canvas>
+  <div class="fireworks-container" id="fireworks-container"></div>
+  <canvas class="confetti-canvas" id="confetti-canvas"></canvas>
 
   <script>
-    var myCanvas = document.getElementById("myCanvas");
-    var myConfetti = confetti.create(myCanvas, { resize: true, useWorker: true });
+    // Initialize elements
+    const confettiCanvas = document.getElementById('confetti-canvas');
+    const myConfetti = confetti.create(confettiCanvas, { resize: true, useWorker: true });
+    const fireworksContainer = document.getElementById('fireworks-container');
+    const fireworks = new Fireworks(fireworksContainer, {
+      autoresize: true,
+      opacity: 0.5,
+      acceleration: 1.02,
+      friction: 0.97,
+      gravity: 1.5,
+      particles: 100,
+      traceLength: 3,
+      traceSpeed: 10,
+      explosion: 5,
+      intensity: 30,
+      flickering: 50,
+      lineStyle: 'round',
+      hue: {
+        min: 0,
+        max: 360
+      },
+      delay: {
+        min: 30,
+        max: 60
+      },
+      rocketsPoint: {
+        min: 50,
+        max: 50
+      },
+      lineWidth: {
+        explosion: {
+          min: 1,
+          max: 3
+        },
+        trace: {
+          min: 1,
+          max: 2
+        }
+      },
+      brightness: {
+        min: 50,
+        max: 80
+      },
+      decay: {
+        min: 0.015,
+        max: 0.03
+      },
+      mouse: {
+        click: true,
+        move: false,
+        max: 1
+      }
+    });
+
+    // Start the fireworks
+    fireworks.start();
 
     // Function to handle confetti animation
     function startConfetti() {
@@ -193,6 +334,67 @@
         colors: ['#ffd700', '#fff', '#ffae00']
       });
     });
+
+    // Button event handlers
+    document.getElementById('moreFireworks').addEventListener('click', function() {
+      for (let i = 0; i < 5; i++) {
+        setTimeout(() => {
+          fireworks.shoot();
+        }, i * 300);
+      }
+    });
+
+    document.getElementById('moreConfetti').addEventListener('click', function() {
+      startConfetti();
+    });
+
+    document.getElementById('magicButton').addEventListener('click', function() {
+      // Intensify fireworks
+      fireworks.setOptions({
+        particles: 150,
+        intensity: 40
+      });
+      
+      // Shoot several fireworks
+      for (let i = 0; i < 10; i++) {
+        setTimeout(() => {
+          fireworks.shoot();
+        }, i * 200);
+      }
+      
+      // Special confetti blast
+      myConfetti({
+        particleCount: 300,
+        spread: 100,
+        startVelocity: 45,
+        origin: { y: 0.5 }
+      });
+      
+      // Add some emoji confetti
+      setTimeout(() => {
+        const scalar = 3;
+        const heart = confetti.shapeFromText({ text: "❤️", scalar });
+        const star = confetti.shapeFromText({ text: "⭐", scalar });
+        const sparkle = confetti.shapeFromText({ text: "✨", scalar });
+        
+        myConfetti({
+          shapes: [heart, star, sparkle],
+          scalar,
+          particleCount: 50,
+          spread: 360,
+          startVelocity: 35,
+          origin: { x: 0.5, y: 0.4 }
+        });
+      }, 800);
+    });
+
+    // Adjust fireworks for mobile performance
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+      fireworks.setOptions({
+        particles: 70,
+        intensity: 20
+      });
+    }
   </script>
 </body>
 </html>
