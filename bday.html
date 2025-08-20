@@ -1,204 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Happy Birthday Areeya Mae!</title>
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/fireworks-js@2.x/dist/index.umd.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Celebration Effects</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap');
-    
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    
     body {
       margin: 0;
-      min-height: 100vh;
+      background: #111;
+      color: white;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      background: radial-gradient(circle at top, #0b0c10 0%, #1f2833 100%);
-      font-family: 'MedievalSharp', cursive;
-      overflow-x: hidden;
-      color: #f5f5f5;
-      padding: 20px;
-      cursor: pointer;
+      height: 100vh;
     }
 
-    .container {
-      text-align: center;
-      position: relative;
-      z-index: 2;
-      width: 100%;
-      max-width: 800px;
-      padding: 30px;
-      background: rgba(15, 23, 42, 0.7);
-      border-radius: 20px;
-      box-shadow: 0 0 30px rgba(255, 215, 0, 0.4);
-      backdrop-filter: blur(5px);
-      animation: containerGlow 3s infinite alternate;
-    }
-
-    @keyframes containerGlow {
-      0% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.4); }
-      100% { box-shadow: 0 0 40px rgba(255, 215, 0, 0.8), 0 0 60px rgba(255, 140, 0, 0.6); }
-    }
-
-    h1 {
-      font-size: 2.5rem;
-      color: #ffd700;
-      text-shadow: 0 0 10px #ffdf00, 0 0 20px #ffae00, 0 0 40px #ff8800;
-      animation: glow 2s infinite alternate;
-      margin-bottom: 1.5rem;
-      line-height: 1.2;
-    }
-
-    @keyframes glow {
-      from {
-        text-shadow: 0 0 10px #ffdf00, 0 0 20px #ffae00, 0 0 40px #ff8800;
-      }
-      to {
-        text-shadow: 0 0 20px #fff, 0 0 30px #ffd700, 0 0 50px #ff4500;
-      }
-    }
-
-    .message {
-      margin-top: 1rem;
-      font-size: 1.4rem;
-      color: #e0e0e0;
-      text-shadow: 2px 2px 8px #000;
-      line-height: 1.4;
-      padding: 0 10px;
-    }
-
-    .fireworks-container {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 1;
-    }
-
-    .confetti-canvas {
+    #fireworks-container,
+    #confetti-canvas {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
       pointer-events: none;
-      z-index: 2;
+      z-index: 9999;
     }
 
-    .instructions {
-      margin-top: 25px;
-      font-size: 1rem;
-      color: #aaa;
-      animation: pulse 2s infinite;
-    }
-
-    @keyframes pulse {
-      0% { opacity: 0.6; }
-      50% { opacity: 1; }
-      100% { opacity: 0.6; }
-    }
-
-    /* Heart animation */
-    .heart {
-      display: inline-block;
-      animation: pulse 1.5s infinite;
-    }
-
-    /* Mobile responsiveness */
-    @media (max-width: 768px) {
-      h1 {
-        font-size: 2rem;
-        padding: 0 10px;
-      }
-      
-      .message {
-        font-size: 1.2rem;
-      }
-      
-      .container {
-        padding: 20px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      h1 {
-        font-size: 1.7rem;
-      }
-      
-      .message {
-        font-size: 1.1rem;
-      }
-      
-      body {
-        padding: 15px;
-      }
-      
-      .container {
-        padding: 15px;
-      }
-    }
-
-    @media (max-width: 360px) {
-      h1 {
-        font-size: 1.5rem;
-      }
-      
-      .message {
-        font-size: 1rem;
-      }
-    }
-
-    /* Orientation adjustment */
-    @media (max-height: 500px) and (orientation: landscape) {
-      .container {
-        transform: scale(0.85);
-        padding-top: 10px;
-        padding-bottom: 10px;
-      }
+    button {
+      position: relative;
+      z-index: 10000;
+      padding: 10px 20px;
+      font-size: 18px;
+      cursor: pointer;
     }
   </style>
 </head>
-<body>
-  <div class="container">
-    <h1>⚡ Happy 31st Birthday, Areeya Mae! ⚡</h1>
-    <div class="message">🪄 Mischief Managed! May your day be filled with magic & love. ✨</div>
-    <div class="message">Bawi ako love pramis <span class="heart">;*</span></div>
-    <div class="message">Mahal na mahal kita <span class="heart">❤️</span></div>
-    <div class="message">Di kita iiwan <span class="heart">;*</span></div>
-    
-    <div class="instructions">Tap/click anywhere for more fireworks!</div>
-  </div>
+<body onClick="startFullCelebration()"">
 
-  <div class="fireworks-container" id="fireworks-container"></div>
-  <canvas class="confetti-canvas" id="confetti-canvas"></canvas>
+  <!-- Confetti Canvas -->
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- Fireworks Container -->
+  <div id="fireworks-container"></div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/fireworks-js/dist/fireworks.js"></script>
 
   <script>
-    // Global variables
     let confettiCanvas, myConfetti, fireworksContainer, fireworks;
     let isInitialized = false;
 
-    // Initialize function
     function initializeEffects() {
       if (isInitialized) return;
-      
-      // Initialize confetti
+
+      // Confetti setup
       confettiCanvas = document.getElementById('confetti-canvas');
-      myConfetti = confetti.create(confettiCanvas, { 
-        resize: true, 
-        useWorker: true 
+      myConfetti = confetti.create(confettiCanvas, {
+        resize: true,
+        useWorker: true
       });
-      
-      // Initialize fireworks
+
+      // Fireworks setup
       fireworksContainer = document.getElementById('fireworks-container');
+      if (typeof Fireworks === "undefined") {
+        console.error("❌ Fireworks library not loaded correctly!");
+        return;
+      }
+
       fireworks = new Fireworks(fireworksContainer, {
         autoresize: true,
         opacity: 0.7,
@@ -212,45 +82,17 @@
         intensity: 25,
         flickering: 50,
         lineStyle: 'round',
-        hue: {
-          min: 0,
-          max: 360
-        },
-        delay: {
-          min: 20,
-          max: 40
-        },
-        rocketsPoint: {
-          min: 50,
-          max: 50
-        },
-        lineWidth: {
-          explosion: {
-            min: 1,
-            max: 3
-          },
-          trace: {
-            min: 1,
-            max: 2
-          }
-        },
-        brightness: {
-          min: 50,
-          max: 80
-        },
-        decay: {
-          min: 0.015,
-          max: 0.03
-        },
-        mouse: {
-          click: false,
-          move: false,
-          max: 1
-        }
+        hue: { min: 0, max: 360 },
+        delay: { min: 20, max: 40 },
+        rocketsPoint: { min: 50, max: 50 },
+        lineWidth: { explosion: { min: 1, max: 3 }, trace: { min: 1, max: 2 } },
+        brightness: { min: 50, max: 80 },
+        decay: { min: 0.015, max: 0.03 },
+        mouse: { click: false, move: false, max: 1 }
       });
 
-      // Adjust for mobile
-      if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+      // Mobile adjustments
+      if (/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
         fireworks.setOptions({
           particles: 60,
           intensity: 18
@@ -260,147 +102,47 @@
       isInitialized = true;
     }
 
-    // Full celebration function (for page load)
-    function startFullCelebration() {
-      if (!isInitialized) return;
+    async function startFullCelebration() {
+      initializeEffects();
 
-      // Start continuous fireworks
+      // Start fireworks
       fireworks.start();
 
-      // Initial confetti burst
+      // Emoji shapes
+      const emoji = confetti.shapeFromText({ text: '🎉', scalar: 2 });
+      const heart = confetti.shapeFromText({ text: '❤️', scalar: 2 });
+
+      // Burst confetti
       myConfetti({
-        particleCount: 200,
-        spread: 160,
-        origin: { y: 0.6 },
-        colors: ['#740001', '#d3a625', '#1a472a', '#2a623d', '#0e1a40', '#222f5b', '#ecb939', '#946b2d']
-      });
-
-      // Create magical shapes
-      const scalar = 2;
-      const wand = confetti.shapeFromText({ text: "🪄", scalar });
-      const sparkle = confetti.shapeFromText({ text: "✨", scalar });
-      const wizard = confetti.shapeFromText({ text: "🧙‍♀️", scalar });
-      const lightning = confetti.shapeFromText({ text: "⚡", scalar });
-      const heart = confetti.shapeFromText({ text: "❤️", scalar });
-      const star = confetti.shapeFromText({ text: "⭐", scalar });
-
-      // Magical emoji confetti burst
-      setTimeout(() => {
-        myConfetti({
-          shapes: [wand, sparkle, wizard, lightning, heart, star],
-          scalar,
-          particleCount: 60,
-          spread: 360,
-          startVelocity: 25,
-          origin: { x: 0.5, y: 0.3 },
-          colors: ['#ffd700', '#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4', '#feca57']
-        });
-      }, 800);
-
-      // Multiple firework shots
-      for (let i = 0; i < 6; i++) {
-        setTimeout(() => {
-          fireworks.shoot();
-        }, i * 400);
-      }
-
-      // Continuous gentle confetti
-      let gentleConfettiCount = 0;
-      const maxGentleConfetti = 60; // Run for about 5 minutes
-      
-      const gentleConfettiInterval = setInterval(() => {
-        if (gentleConfettiCount >= maxGentleConfetti) {
-          clearInterval(gentleConfettiInterval);
-          return;
-        }
-        
-        myConfetti({
-          particleCount: 4,
-          spread: 60,
-          startVelocity: 15,
-          origin: { x: Math.random(), y: 0 },
-          colors: ['#ffd700', '#fff', '#ffae00', '#ff6b6b']
-        });
-        
-        gentleConfettiCount++;
-      }, 3000);
-    }
-
-    // Click/touch trigger function
-    function triggerQuickEffects() {
-      if (!isInitialized) return;
-
-      // Quick firework burst
-      for (let i = 0; i < 4; i++) {
-        setTimeout(() => {
-          fireworks.shoot();
-        }, i * 200);
-      }
-      
-      // Confetti burst
-      myConfetti({
-        particleCount: 80,
+        particleCount: 150,
         spread: 120,
-        startVelocity: 30,
-        origin: { y: 0.7 },
-        colors: ['#ffd700', '#ff6b6b', '#4ecdc4', '#45b7d1']
+        origin: { y: 0.6 },
+        shapes: [emoji, heart, 'circle']
       });
-      
-      // Magical emoji burst
-      setTimeout(() => {
-        const scalar = 2.5;
-        const heart = confetti.shapeFromText({ text: "❤️", scalar });
-        const star = confetti.shapeFromText({ text: "⭐", scalar });
-        const sparkle = confetti.shapeFromText({ text: "✨", scalar });
-        
+
+      // Keep confetti coming
+      const duration = 3000; // 3s
+      const end = Date.now() + duration;
+
+      (function frame() {
         myConfetti({
-          shapes: [heart, star, sparkle],
-          scalar,
-          particleCount: 25,
-          spread: 100,
-          startVelocity: 20,
-          origin: { x: 0.5, y: 0.6 }
+          particleCount: 3,
+          spread: 70,
+          origin: { x: Math.random(), y: Math.random() - 0.2 }
         });
-      }, 300);
+
+        if (Date.now() < end) {
+          requestAnimationFrame(frame);
+        }
+      })();
+
+      // Stop fireworks after 5s
+      setTimeout(() => {
+        fireworks.stop();
+      }, 5000);
     }
 
-    // Event listeners
-    document.addEventListener('DOMContentLoaded', function() {
-      // Small delay to ensure everything is loaded
-      setTimeout(() => {
-        initializeEffects();
-        startFullCelebration();
-      }, 500);
-    });
-
-    // Alternative load event
-    window.addEventListener('load', function() {
-      if (!isInitialized) {
-        setTimeout(() => {
-          initializeEffects();
-          startFullCelebration();
-        }, 300);
-      }
-    });
-
-    // Click and touch events
-    document.body.addEventListener('click', function(e) {
-      e.preventDefault();
-      triggerQuickEffects();
-    });
-
-    document.body.addEventListener('touchstart', function(e) {
-      e.preventDefault();
-      triggerQuickEffects();
-    }, { passive: false });
-
-    // Backup initialization for slower connections
-    setTimeout(() => {
-      if (!isInitialized) {
-        initializeEffects();
-        startFullCelebration();
-      }
-    }, 2000);
+    startFullCelebration();
   </script>
 </body>
 </html>
