@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Celebration Effects</title>
+  <style>
+    body {
+      margin: 0;
+      background: #111;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    #fireworks-container,
+    #confetti-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    button {
+      position: relative;
+      z-index: 10000;
+      padding: 10px 20px;
+      font-size: 18px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body onClick="startFullCelebration()"">
+
+  <!-- Confetti Canvas -->
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- Fireworks Container -->
+  <div id="fireworks-container"></div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/fireworks-js/dist/fireworks.js"></script>
+
+  <script>
+    let confettiCanvas, myConfetti, fireworksContainer, fireworks;
+    let isInitialized = false;
+
+    function initializeEffects() {
+      if (isInitialized) return;
+
+      // Confetti setup
+      confettiCanvas = document.getElementById('confetti-canvas');
+      myConfetti = confetti.create(confettiCanvas, {
+        resize: true,
+        useWorker: true
+      });
+
+      // Fireworks setup
+      fireworksContainer = document.getElementById('fireworks-container');
+      if (typeof Fireworks === "undefined") {
+        console.error("❌ Fireworks library not loaded correctly!");
+        return;
+      }
+
+      fireworks = new Fireworks(fireworksContainer, {
+        autoresize: true,
+        opacity: 0.7,
+        acceleration: 1.05,
+        friction: 0.97,
+        gravity: 1.5,
+        particles: 80,
+        traceLength: 3,
+        traceSpeed: 10,
+        explosion: 5,
+        intensity: 25,
+        flickering: 50,
+        lineStyle: 'round',
+        hue: { min: 0, max: 360 },
+        delay: { min: 20, max: 40 },
+        rocketsPoint: { min: 50, max: 50 },
+        lineWidth: { explosion: { min: 1, max: 3 }, trace: { min: 1, max: 2 } },
+        brightness: { min: 50, max: 80 },
+        decay: { min: 0.015, max: 0.03 },
+        mouse: { click: false, move: false, max: 1 }
+      });
+
+      // Mobile adjustments
+      if (/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+        fireworks.setOptions({
+          particles: 60,
+          intensity: 18
+        });
+      }
+
+      isInitialized = true;
+    }
+
+    async function startFullCelebration() {
+      initializeEffects();
+
+      // Start fireworks
+      fireworks.start();
+
+      // Emoji shapes
+      const emoji = confetti.shapeFromText({ text: '🎉', scalar: 2 });
+      const heart = confetti.shapeFromText({ text: '❤️', scalar: 2 });
+
+      // Burst confetti
+      myConfetti({
+        particleCount: 150,
+        spread: 120,
+        origin: { y: 0.6 },
+        shapes: [emoji, heart, 'circle']
+      });
+
+      // Keep confetti coming
+      const duration = 3000; // 3s
+      const end = Date.now() + duration;
+
+      (function frame() {
+        myConfetti({
+          particleCount: 3,
+          spread: 70,
+          origin: { x: Math.random(), y: Math.random() - 0.2 }
+        });
+
+        if (Date.now() < end) {
+          requestAnimationFrame(frame);
+        }
+      })();
+
+      // Stop fireworks after 5s
+      setTimeout(() => {
+        fireworks.stop();
+      }, 5000);
+    }
+
+    startFullCelebration();
+  </script>
+</body>
+</html>
