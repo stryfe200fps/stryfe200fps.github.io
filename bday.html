@@ -182,68 +182,92 @@
   <canvas class="confetti-canvas" id="confetti-canvas"></canvas>
 
   <script>
-    // Initialize elements
-    const confettiCanvas = document.getElementById('confetti-canvas');
-    const myConfetti = confetti.create(confettiCanvas, { resize: true, useWorker: true });
-    const fireworksContainer = document.getElementById('fireworks-container');
-    
-    // Initialize fireworks with custom options
-    const fireworks = new Fireworks(fireworksContainer, {
-      autoresize: true,
-      opacity: 0.5,
-      acceleration: 1.05,
-      friction: 0.97,
-      gravity: 1.5,
-      particles: 100,
-      traceLength: 3,
-      traceSpeed: 10,
-      explosion: 5,
-      intensity: 30,
-      flickering: 50,
-      lineStyle: 'round',
-      hue: {
-        min: 0,
-        max: 360
-      },
-      delay: {
-        min: 30,
-        max: 60
-      },
-      rocketsPoint: {
-        min: 50,
-        max: 50
-      },
-      lineWidth: {
-        explosion: {
-          min: 1,
-          max: 3
+    // Global variables
+    let confettiCanvas, myConfetti, fireworksContainer, fireworks;
+    let isInitialized = false;
+
+    // Initialize function
+    function initializeEffects() {
+      if (isInitialized) return;
+      
+      // Initialize confetti
+      confettiCanvas = document.getElementById('confetti-canvas');
+      myConfetti = confetti.create(confettiCanvas, { 
+        resize: true, 
+        useWorker: true 
+      });
+      
+      // Initialize fireworks
+      fireworksContainer = document.getElementById('fireworks-container');
+      fireworks = new Fireworks(fireworksContainer, {
+        autoresize: true,
+        opacity: 0.7,
+        acceleration: 1.05,
+        friction: 0.97,
+        gravity: 1.5,
+        particles: 80,
+        traceLength: 3,
+        traceSpeed: 10,
+        explosion: 5,
+        intensity: 25,
+        flickering: 50,
+        lineStyle: 'round',
+        hue: {
+          min: 0,
+          max: 360
         },
-        trace: {
-          min: 1,
-          max: 2
+        delay: {
+          min: 20,
+          max: 40
+        },
+        rocketsPoint: {
+          min: 50,
+          max: 50
+        },
+        lineWidth: {
+          explosion: {
+            min: 1,
+            max: 3
+          },
+          trace: {
+            min: 1,
+            max: 2
+          }
+        },
+        brightness: {
+          min: 50,
+          max: 80
+        },
+        decay: {
+          min: 0.015,
+          max: 0.03
+        },
+        mouse: {
+          click: false,
+          move: false,
+          max: 1
         }
-      },
-      brightness: {
-        min: 50,
-        max: 80
-      },
-      decay: {
-        min: 0.015,
-        max: 0.03
-      },
-      mouse: {
-        click: false,
-        move: false,
-        max: 1
+      });
+
+      // Adjust for mobile
+      if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+        fireworks.setOptions({
+          particles: 60,
+          intensity: 18
+        });
       }
-    });
 
-    // Start the fireworks automatically
-    fireworks.start();
+      isInitialized = true;
+    }
 
-    // Function to handle confetti animation
-    function startConfetti() {
-      // Initial burst
+    // Full celebration function (for page load)
+    function startFullCelebration() {
+      if (!isInitialized) return;
+
+      // Start continuous fireworks
+      fireworks.start();
+
+      // Initial confetti burst
       myConfetti({
         particleCount: 200,
         spread: 160,
@@ -251,65 +275,80 @@
         colors: ['#740001', '#d3a625', '#1a472a', '#2a623d', '#0e1a40', '#222f5b', '#ecb939', '#946b2d']
       });
 
-      // Create custom shapes
-      var scalar = 2;
-      var wand = confetti.shapeFromText({ text: "🪄", scalar });
-      var sparkle = confetti.shapeFromText({ text: "✨", scalar });
-      var wizard = confetti.shapeFromText({ text: "🧙‍♀️", scalar });
-      var lightning = confetti.shapeFromText({ text: "⚡", scalar });
-      var heart = confetti.shapeFromText({ text: "❤️", scalar });
-      var star = confetti.shapeFromText({ text: "⭐", scalar });
+      // Create magical shapes
+      const scalar = 2;
+      const wand = confetti.shapeFromText({ text: "🪄", scalar });
+      const sparkle = confetti.shapeFromText({ text: "✨", scalar });
+      const wizard = confetti.shapeFromText({ text: "🧙‍♀️", scalar });
+      const lightning = confetti.shapeFromText({ text: "⚡", scalar });
+      const heart = confetti.shapeFromText({ text: "❤️", scalar });
+      const star = confetti.shapeFromText({ text: "⭐", scalar });
 
-      // Special emoji confetti after a delay
+      // Magical emoji confetti burst
       setTimeout(() => {
         myConfetti({
           shapes: [wand, sparkle, wizard, lightning, heart, star],
           scalar,
-          particleCount: 80,
+          particleCount: 60,
           spread: 360,
           startVelocity: 25,
-          origin: { x: 0.5, y: 0.3 }
+          origin: { x: 0.5, y: 0.3 },
+          colors: ['#ffd700', '#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4', '#feca57']
         });
-      }, 1200);
+      }, 800);
 
-      // Continuous gentle confetti fall
-      var duration = 15 * 1000;
-      var end = Date.now() + duration;
-
-      (function frame() {
-        myConfetti({
-          particleCount: 3,
-          spread: 360,
-          startVelocity: 15,
-          origin: { x: Math.random(), y: Math.random() * 0.3 },
-          colors: ['#ffd700', '#fff', '#ffae00']
-        });
-        if (Date.now() < end) {
-          requestAnimationFrame(frame);
-        }
-      })();
-    }
-
-    // Function to trigger both fireworks and confetti
-    function triggerEffects() {
-      // Shoot several fireworks
-      for (let i = 0; i < 5; i++) {
+      // Multiple firework shots
+      for (let i = 0; i < 6; i++) {
         setTimeout(() => {
           fireworks.shoot();
-        }, i * 300);
+        }, i * 400);
+      }
+
+      // Continuous gentle confetti
+      let gentleConfettiCount = 0;
+      const maxGentleConfetti = 60; // Run for about 5 minutes
+      
+      const gentleConfettiInterval = setInterval(() => {
+        if (gentleConfettiCount >= maxGentleConfetti) {
+          clearInterval(gentleConfettiInterval);
+          return;
+        }
+        
+        myConfetti({
+          particleCount: 4,
+          spread: 60,
+          startVelocity: 15,
+          origin: { x: Math.random(), y: 0 },
+          colors: ['#ffd700', '#fff', '#ffae00', '#ff6b6b']
+        });
+        
+        gentleConfettiCount++;
+      }, 3000);
+    }
+
+    // Click/touch trigger function
+    function triggerQuickEffects() {
+      if (!isInitialized) return;
+
+      // Quick firework burst
+      for (let i = 0; i < 4; i++) {
+        setTimeout(() => {
+          fireworks.shoot();
+        }, i * 200);
       }
       
-      // Add confetti burst
+      // Confetti burst
       myConfetti({
-        particleCount: 100,
-        spread: 100,
-        startVelocity: 35,
-        origin: { y: 0.6 }
+        particleCount: 80,
+        spread: 120,
+        startVelocity: 30,
+        origin: { y: 0.7 },
+        colors: ['#ffd700', '#ff6b6b', '#4ecdc4', '#45b7d1']
       });
       
-      // Add some emoji confetti
+      // Magical emoji burst
       setTimeout(() => {
-        const scalar = 3;
+        const scalar = 2.5;
         const heart = confetti.shapeFromText({ text: "❤️", scalar });
         const star = confetti.shapeFromText({ text: "⭐", scalar });
         const sparkle = confetti.shapeFromText({ text: "✨", scalar });
@@ -317,41 +356,51 @@
         myConfetti({
           shapes: [heart, star, sparkle],
           scalar,
-          particleCount: 30,
-          spread: 360,
-          startVelocity: 25,
-          origin: { x: Math.random(), y: 0.5 }
+          particleCount: 25,
+          spread: 100,
+          startVelocity: 20,
+          origin: { x: 0.5, y: 0.6 }
         });
-      }, 500);
+      }, 300);
     }
 
-    // Run effects on load
-    window.addEventListener('load', function() {
-      startConfetti();
-      
-      // Continue with gentle confetti after initial burst
-      setInterval(() => {
-        myConfetti({
-          particleCount: 5,
-          angle: 90,
-          spread: 100,
-          startVelocity: 25,
-          origin: { x: Math.random(), y: 1 }
-        });
-      }, 5000);
+    // Event listeners
+    document.addEventListener('DOMContentLoaded', function() {
+      // Small delay to ensure everything is loaded
+      setTimeout(() => {
+        initializeEffects();
+        startFullCelebration();
+      }, 500);
     });
 
-    // Add click/touch support to trigger effects
-    document.body.addEventListener('click', triggerEffects);
-    document.body.addEventListener('touchstart', triggerEffects);
+    // Alternative load event
+    window.addEventListener('load', function() {
+      if (!isInitialized) {
+        setTimeout(() => {
+          initializeEffects();
+          startFullCelebration();
+        }, 300);
+      }
+    });
 
-    // Adjust fireworks for mobile performance
-    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-      fireworks.setOptions({
-        particles: 70,
-        intensity: 20
-      });
-    }
+    // Click and touch events
+    document.body.addEventListener('click', function(e) {
+      e.preventDefault();
+      triggerQuickEffects();
+    });
+
+    document.body.addEventListener('touchstart', function(e) {
+      e.preventDefault();
+      triggerQuickEffects();
+    }, { passive: false });
+
+    // Backup initialization for slower connections
+    setTimeout(() => {
+      if (!isInitialized) {
+        initializeEffects();
+        startFullCelebration();
+      }
+    }, 2000);
   </script>
 </body>
 </html>
